@@ -1,0 +1,29 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if not s or len(s) == 1:
+            return s
+
+        def expand_from_center(left, right):
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            # substring between (left+1, right)
+            return s[left + 1:right]
+
+        longest = ""
+        for i in range(len(s)):
+            # Odd-length palindrome
+            odd = expand_from_center(i, i)
+            # Even-length palindrome
+            even = expand_from_center(i, i + 1)
+            # Pick the longer one
+            current_longest = odd if len(odd) > len(even) else even
+
+            if len(current_longest) > len(longest):
+                longest = current_longest
+
+        return longest
