@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) {
+            return "";
+        }
+
+        // Start with the first string as the initial prefix
+        string prefix = strs[0];
+
+        // Iterate through the remaining strings
+        for (int i = 1; i < strs.size(); ++i) {
+            // While the current string does not start with the current prefix,
+            // shorten the prefix by one character from the end.
+            while (strs[i].find(prefix) != 0) {
+                prefix = prefix.substr(0, prefix.length() - 1);
+                if (prefix.empty()) {
+                    return ""; // No common prefix found
+                }
+            }
+        }
+        return prefix;
+    }
+};
